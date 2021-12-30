@@ -1,0 +1,172 @@
+import pyttsx3
+import pandas as pd
+import calendar
+import datetime
+engine=pyttsx3.init()
+from IPython.display import Image
+display(Image(filename=r"C:\Users\thrishanandsudarshan\OneDrive\Desktop\logo.png"))
+engine.say('welcome to bucket list application which set reminder and remind on go')
+engine.runAndWait()
+ch1="y"
+while ch1=="y":
+    print("TO BE SCHEDULE : 1")
+    print("REMINDER : 2")
+    choice=int(input("enter your choice:"))
+    if choice == 1:
+        n = int(input('no of schedules :'))
+        if n==1:
+            engine.say('enter the year between 2021 and 2024  ')
+            engine.runAndWait()
+            y = int(input("enter the year(2021,2022 and 2024) : "))
+            engine.say('enter the month in given year to be schedule in number ')
+            engine.runAndWait()
+            m = int(input("enter the month in given year to be schedule in number :"))
+            print(calendar.month(y, m))
+            print("choose a date from the calender")
+            ch = 'y'
+            while ch == 'y':
+                engine.say('enter the date ')
+                engine.runAndWait()
+                d = int(input("enter the date"))
+                x = datetime.date(y, m, d)
+                today = datetime.date.today()
+                if x >= today:
+                    engine.say('enter the hour in base of 24 ')
+                    engine.runAndWait()
+                    h = int(input('enter the hour in base of 24 :'))
+                    engine.say('enter the mins in base of 60 ')
+                    engine.runAndWait()
+                    m = int(input('enter the mins in base of 60 :'))
+                    t = datetime.time(h, m)
+                    engine.say('enter reminder ')
+                    engine.runAndWait()
+                    r = input('enter reminder :')
+                    l = []
+                    l.append(x)
+                    l.append(t)
+                    l.append(r)
+                    print(l)
+                    c = ['date', 'time', 'reminder']
+                    d = pd.DataFrame(l).T
+                    d = d.rename(columns={0: 'date', 1: 'time', 2: 'schedule'})
+                    d = d.rename(index={0: 1})
+                    engine.say('reminder has been set ')
+                    engine.runAndWait()
+                    break
+                else:
+                    ch = 'y'
+            cs = d.to_csv(r'C:\Users\thrishanandsudarshan\OneDrive\Desktop\schedule.csv',mode='a',header=False)
+        else:
+            for i in range(n):
+                if i==0:
+                    engine.say('enter the year between 2021 and 2024  ')
+                    engine.runAndWait()
+                    y = int(input("enter the year(2021,2022 and 2024) : "))
+                    engine.say('enter the month in given year to be schedule in number ')
+                    engine.runAndWait()
+                    m = int(input("enter the month in given year to be schedule in number :"))
+                    print(calendar.month(y,m))
+                    print("choose a date from the calender")
+                    ch='y'
+                    while ch=='y':
+                        engine.say('enter the date ')
+                        engine.runAndWait()
+                        d=int(input("enter the date"))
+                        x=datetime.date(y,m,d)
+                        today = datetime.date.today()
+                        if x >= today:
+                            engine.say('enter the hour in base of 24 ')
+                            engine.runAndWait()
+                            h=int(input('enter the hour in base of 24 :'))
+                            engine.say('enter the mins in base of 60 ')
+                            engine.runAndWait()
+                            m=int(input('enter the mins in base of 60 :'))
+                            t=datetime.time(h,m)
+                            engine.say('enter reminder ')
+                            engine.runAndWait()
+                            r=input('enter reminder :')
+                            l=[]
+                            l.append(x)
+                            l.append(t)
+                            l.append(r)
+                            print(l)
+                            c=['date','time','reminder']
+                            d=pd.DataFrame(l).T
+                            d=d.rename(columns={0:'date',1:'time',2:'schedule'})
+                            d=d.rename(index={0:i+1})
+                            a=d
+                            engine.say('reminder has been set ')
+                            engine.runAndWait()
+                            break
+                        else:
+                            ch='y'
+
+                else:
+                    print(a)
+                    engine.say('enter the year between 2021 and 2024  ')
+                    engine.runAndWait()
+                    y = int(input("enter the year(2021,2022 and 2023) : "))
+                    engine.say('enter the month in given year to be schedule in number ')
+                    engine.runAndWait()
+                    m = int(input("enter the month in given year to be schedule in number"))
+                    print(calendar.month(y, m))
+                    print("choose a date from the calender")
+                    ch = 'y'
+                    while ch == 'y':
+                        engine.say('enter the date ')
+                        engine.runAndWait()
+                        d = int(input("enter the date"))
+                        x = datetime.date(y, m, d)
+                        today = datetime.date.today()
+                        if x >= today:
+                            engine.say('enter the hour in base of 24 ')
+                            engine.runAndWait()
+                            h = int(input('enter the hour in base of 24 :'))
+                            engine.say('enter the mins in base of 60 ')
+                            engine.runAndWait()
+                            m = int(input('enter the mins in base of 60 :'))
+                            t = datetime.time(h, m)
+                            engine.say('enter reminder ')
+                            engine.runAndWait()
+                            r = input('enter reminder :')
+                            l = []
+                            l.append(x)
+                            l.append(t)
+                            l.append(r)
+                            print(l)
+                            c = ['date', 'time', 'reminder']
+                            d = pd.DataFrame(l).T
+                            d = d.rename(columns={0: 'date', 1: 'time', 2: 'schedule'})
+                            d = d.rename(index={0: i + 1})
+                            a1=d
+                            s=pd.concat([a,a1],axis=0)
+                            a=s
+                            engine.say('reminder has been set ')
+                            engine.runAndWait()
+                            break
+                        else:
+                                ch = 'y'
+            print(s)
+            cs=s.to_csv(r'C:\Users\thrishanandsudarshan\OneDrive\Desktop\schedule.csv',mode='a',header=False)
+
+    elif choice==2:
+        today=datetime.date.today()
+        j=[]
+        red=pd.read_csv(r'C:\Users\thrishanandsudarshan\OneDrive\Desktop\schedule.csv')
+        for i in list(red['date']):
+            y=int(i[0:4])
+            m=int(i[5:7])
+            d=int(i[8:10])
+            i=datetime.date(y,m,d)
+            if i==today:
+                for m1 in red.index[red['date'] ==str(i)]:
+                    j.append(m1)
+                for n in j:
+                    k=red.iat[n,3]
+                    print(k)
+                    engine.say(k)
+                    engine.runAndWait()
+                break
+    else:
+        print("hi")
+    ch1=input("Want add or view any schedule(y/n): ")
